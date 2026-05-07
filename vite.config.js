@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
 import { fileURLToPath, URL } from 'node:url'
+import path from 'node:path'
 
 export default defineConfig({
   plugins: [
@@ -16,7 +17,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "/home/gmijo/Dev/Projects/Portofolio/src/assets/styles/variables" as *;`
+        additionalData: `@use "${path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'src/assets/styles/variables')}" as *;`
       }
     }
   }
