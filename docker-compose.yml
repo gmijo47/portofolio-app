@@ -6,11 +6,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - letsencrypt:/etc/letsencrypt:ro
+      - letsencrypt:/etc/letsencrypt
       - certbot-webroot:/var/www/certbot:ro
     restart: unless-stopped
-    depends_on:
-      - certbot
 
   certbot:
     image: certbot/certbot:latest
@@ -18,10 +16,11 @@ services:
     volumes:
       - letsencrypt:/etc/letsencrypt
       - certbot-webroot:/var/www/certbot
-    # After first-run init, this loop renews certs every 12h
-    # After renewal nginx is signalled to reload so new certs are picked up
-    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --quiet --webroot -w /var/www/certbot; sleep 12h & wait $${!}; done"
+      - ./certbot-entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
     restart: unless-stopped
+    depends_on:
+      - portfolio
 
 volumes:
   letsencrypt:
