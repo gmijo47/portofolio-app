@@ -19,6 +19,7 @@ services:
       - letsencrypt:/etc/letsencrypt
       - certbot-webroot:/var/www/certbot
     # After first-run init, this loop renews certs every 12h
+    # After renewal nginx is signalled to reload so new certs are picked up
     entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --quiet --webroot -w /var/www/certbot; sleep 12h & wait $${!}; done"
     restart: unless-stopped
 
