@@ -1,0 +1,129 @@
+@use 'animations';
+
+// ─── CSS Custom Properties ───────────────────────────────────────────
+:root {
+  --bg-primary: #{$bg-primary};
+  --bg-secondary: #{$bg-secondary};
+  --bg-tertiary: #{$bg-tertiary};
+  --accent: #{$accent};
+  --accent-light: #{$accent-light};
+  --text-primary: #{$text-primary};
+  --text-muted: #{$text-muted};
+}
+
+// ─── Reset / Base ────────────────────────────────────────────────────
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: $font-heading;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+// ─── Custom Scrollbar ────────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-light);
+}
+
+// ─── Text Selection ──────────────────────────────────────────────────
+::selection {
+  background: rgba(229, 57, 53, 0.35);
+  color: var(--text-primary);
+}
+
+// ─── Typography ──────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.mono {
+  font-family: $font-mono;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-top: 0.5rem;
+  }
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+}
+
+// ─── Section Layout ──────────────────────────────────────────────────
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+// ─── Accent utilities ────────────────────────────────────────────────
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.accent-dot {
+  color: var(--accent);
+}
+
+// ─── Card Hover Glow ─────────────────────────────────────────────────
+.card-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 30px rgba(229, 57, 53, 0.3), 0 8px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(-6px);
+  }
+}
+
+// ─── Vuetify overrides ───────────────────────────────────────────────
+.v-application {
+  background-color: var(--bg-primary) !important;
+  font-family: $font-heading !important;
+}
